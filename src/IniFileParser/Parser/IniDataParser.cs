@@ -135,7 +135,7 @@ namespace IniParser.Parser
                     // Check if there are actually sections in the file
                     if (iniData.Sections.Count > 0)
                     {
-                        iniData.Sections.GetSectionData(_currentSectionNameTemp).TrailingComments
+                        iniData.Sections.GetSectionData(_currentSectionNameTemp).Comments
                             .AddRange(_currentCommentListTemp);
                     }
                     // No sections, put the comment in the last key value pair
@@ -144,12 +144,9 @@ namespace IniParser.Parser
                     {
                         iniData.Global.GetLast().Comments
                             .AddRange(_currentCommentListTemp);
-                    }
-                    
-                    
+                    }            
                     _currentCommentListTemp.Clear();
                 }
-
             }
             catch(Exception ex)
             {
@@ -159,7 +156,6 @@ namespace IniParser.Parser
                     throw;
                 }
             }
-
 
             if (HasError) return null;
             return (IniData)iniData.Clone();
@@ -329,7 +325,7 @@ namespace IniParser.Parser
             currentIniData.Sections.AddSection(sectionName);
 
             // Save comments read until now and assign them to this section
-            currentIniData.Sections.GetSectionData(sectionName).LeadingComments = _currentCommentListTemp;
+            currentIniData.Sections.GetSectionData(sectionName).Comments = _currentCommentListTemp;
             _currentCommentListTemp.Clear();
 
         }

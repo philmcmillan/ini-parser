@@ -65,8 +65,7 @@ namespace IniParser.Model
         /// </summary>
         public void ClearComments()
         {
-            LeadingComments.Clear();
-            TrailingComments.Clear();
+            Comments.Clear();
             Keys.ClearComments();
         }
 
@@ -88,14 +87,9 @@ namespace IniParser.Model
         /// </remarks>
         /// <param name="toMergeSection"></param>
         public void Merge(SectionData toMergeSection)
-        {
-            foreach (var comment in toMergeSection.LeadingComments) 
-                LeadingComments.Add(comment);
-                
+        { 
+            Comments.AddRange(toMergeSection.Comments);              
             Keys.Merge(toMergeSection.Keys);
-
-            foreach(var comment in toMergeSection.TrailingComments) 
-                TrailingComments.Add(comment);
         }
 
 		#endregion
@@ -122,21 +116,6 @@ namespace IniParser.Model
             }
         }
 
-
-		[Obsolete("Do not use this property, use property Comments instead")]
-        public List<string> LeadingComments
-        {
-            get
-            {
-                return _leadingComments;
-            }
-
-            internal set
-            {
-                _leadingComments = new List<string>(value);
-            }
-        }
-
         /// <summary>
         ///     Gets or sets the comment list associated to this section.
         /// </summary>
@@ -150,22 +129,12 @@ namespace IniParser.Model
 				return _leadingComments;
             }
 
-
-        }
-
-		[Obsolete("Do not use this property, use property Comments instead")]
-        public List<string> TrailingComments
-        {
-            get
-            {
-                return _trailingComments;
-            }
-
             internal set
             {
-                _trailingComments = new List<string>(value);
+                _leadingComments = value;
             }
         }
+
         /// <summary>
         ///     Gets or sets the keys associated to this section.
         /// </summary>

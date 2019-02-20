@@ -14,15 +14,14 @@ namespace IniFileParser.Tests.Unit.Model
 
             Assert.That(sd, Is.Not.Null);
             Assert.That(sd.SectionName, Is.EqualTo("section_test"));
-            Assert.That(sd.LeadingComments, Is.Empty);
+            Assert.That(sd.Comments, Is.Empty);
             Assert.That(sd.Keys, Is.Empty);
         }
 
-        [Test, ExpectedException(typeof(ArgumentException))]
+        [Test]
         public void create_section_with_invalid_name()
         {
-            new SectionData("");
-            Assert.Fail("I shouldn't be able to create a section with an empty section name");
+            Assert.Throws<ArgumentException>(() => new SectionData(""));
         }
 
         [Test]
@@ -44,7 +43,7 @@ namespace IniFileParser.Tests.Unit.Model
 
             Assert.That(sd, Is.Not.Null);
             Assert.That(sd.SectionName, Is.EqualTo("section_test_2"));
-            Assert.That(sd.LeadingComments, Is.Empty);
+            Assert.That(sd.Comments, Is.Empty);
             Assert.That(sd.Keys, Is.Empty);
         }
 
